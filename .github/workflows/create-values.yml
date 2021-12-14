@@ -12,10 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: finnp/create-file-action@master
+      - uses: DamianReeves/write-file-action
         env:
-          FILE_NAME: 'dev.values.yml'
-          FILE_DATA: "test: 4\n
+          path: dev.values.yml
+          write_mode: overwrite
+          contents: "test: 4\n
           other-value: is super cool\n
           jobs:\n
             create-values-file:\n
