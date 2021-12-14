@@ -1,1 +1,0 @@
-test: 4 other-value: is super cool jobs: create-values-file: steps: - uses: actions/checkout@v2

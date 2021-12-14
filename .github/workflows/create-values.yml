@@ -12,16 +12,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: DamianReeves/write-file-action@v1
-        env:
-          path: dev.values.yml
-          write_mode: overwrite
-          contents: "test: 4\n
-          other-value: is super cool\n
-          jobs:\n
-            create-values-file:\n
-            steps:\n
-              - uses: actions/checkout@v2"
+      - name: Update Image Version in the related HelmChart values.dev.yaml
+        uses: fjogeleit/yaml-update-action@master
+        with:
+          valueFile: 'dev.values.yaml'
+          propertyPath: 'image.tag'
+          value: KL1234567890
+          repository: KaemonIsland/example-deploy
+          branch: main
+          createPR: false
+          message: 'Update Image Version to KL1234567890'
+          updateFile: true
+          masterBranchName: main
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Update dev.values.yml file
