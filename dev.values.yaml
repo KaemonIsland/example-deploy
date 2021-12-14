@@ -1,9 +1,15 @@
+# Default values for lighthouse-backstage.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
 replicaCount: 1
 revisionHistoryLimit: 3
+
 image:
   repository: ghcr.io/department-of-veterans-affairs/lighthouse-backstage
   pullPolicy: Always
-  tag: KL123
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: 'development'
+
 containers:
   frontend:
     name: http
@@ -23,12 +29,14 @@ containers:
     readinessProbe:
       initialDelaySeconds: 5
       path: /healthcheck
-  postgres: null
+  postgres:
+
 imagePullSecrets: []
 frontend:
-  name: frontend
+  name: 'frontend'
 nameOverride: ''
 fullnameOverride: ''
+
 secrets:
   DOCKERCONFIGJSON: ${DOCKERCONFIGJSON}
   GH_TOKEN: ${GH_TOKEN}
@@ -39,33 +47,58 @@ secrets:
   GH_CLIENT_ID: ${GH_CLIENT_ID}
   GH_CLIENT_SECRET: ${GH_CLIENT_SECRET}
   nonprod: ${nonprod}
+
 serviceAccount:
+  # Specifies whether a service account should be created
   create: true
+  # Annotations to add to the service account
   annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
   name: ''
-podAnnotations:
+
+podAnnotations: #{}
   namespace: lighthouse-bandicoot-dev
-podSecurityContext: {}
-securityContext: {}
+
+podSecurityContext:
+  {}
+  # fsGroup: 2000
+
+securityContext:
+  {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
 service:
   type: ClusterIP
+
 virtualService:
   destination:
     frontend:
       port: 8000
     backend:
       port: 7000
+
 ingress:
   enabled: false
+
 resources:
   limits:
     cpu: '0.5'
-    memory: 500Mi
+    memory: '500Mi'
+
 autoscaling:
   enabled: false
   minReplicas: 1
   maxReplicas: 100
   targetCPUUtilizationPercentage: 80
+
 nodeSelector: {}
+
 tolerations: []
+
 affinity: {}
