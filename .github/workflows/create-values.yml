@@ -13,14 +13,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Update Image Version in the related HelmChart values.dev.yaml
-        uses: fjogeleit/yaml-update-action@master
+        uses: mikefarah/yq@master
         with:
-          valueFile: 'dev.values.yaml'
-          propertyPath: 'image.tag'
-          value: KL1234567890
-          repository: KaemonIsland/example-deploy
+          cmd: yq e -i '.image.tag = "KL123"' 'dev.values.yaml'
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update dev.values.yml file
           branch: main
-          createPR: false
-          message: 'Update Image Version to KL1234567890'
-          updateFile: true
-          masterBranchName: main
