@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: DamianReeves/write-file-action
+      - uses: DamianReeves/write-file-action@v1
         env:
           path: dev.values.yml
           write_mode: overwrite
