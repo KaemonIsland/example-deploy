@@ -16,7 +16,7 @@ jobs:
         env:
           FILE_NAME: 'dev.values.yml'
           FILE_DATA: 'CONTENTS oF THE FILE!!!'
-      - uses: - uses: stefanzweifel/git-auto-commit-action@v4
+      - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Update dev.values.yml file
           branch: main
