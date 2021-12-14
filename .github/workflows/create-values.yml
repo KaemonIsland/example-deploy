@@ -20,7 +20,7 @@ jobs:
           jobs:\n
             create-values-file:\n
             steps:\n
-              - uses: actions/checkout@v2"\n
+              - uses: actions/checkout@v2"
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Update dev.values.yml file
