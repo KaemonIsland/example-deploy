@@ -1,0 +1,22 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Create values file
+
+# Controls when the workflow will run
+on:
+  push:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  create-values-file:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: finnp/create-file-action@master
+        env:
+          FILE_NAME: 'dev.values.yml'
+          FILE_DATA: 'CONTENTS oF THE FILE!!!'
+      - uses: - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update dev.values.yml file
+          branch: main
