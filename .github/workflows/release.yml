@@ -21,10 +21,3 @@ jobs:
         with:
           commit_message: Update dev.values.yml file
           branch: main
-  missing-sha:
-    runs-on: ubuntu-latest
-    if: ${{ !github.event.client_payload.sha }}
-    steps:
-      - name: Missing SHA error
-        run: |
-          echo "You must include a SHA within client_payload for this action to work"
