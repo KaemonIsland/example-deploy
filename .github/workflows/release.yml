@@ -1,27 +1,29 @@
-# This is a basic workflow to help you get started with Actions
+name: Development Values File
 
-name: Chart release
-
-# Controls when the workflow will run
+# Only run on webhook events that include the 'dev' event type.
 on:
   push:
-  # Allows external webhook trigger
   repository_dispatch:
     types: [dev]
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  release:
-    # The type of runner that the job will run on
+  # Updates the dev.values.yaml file to include the image sha
+  update-development-values-file:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    if: ${{ github.event.client_payload.sha }}
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
-      - name: list github event contents
-        run: |
-          echo "${{ github.event.client_payload }}"
-          echo "${{ github.event.client_payload.sha }}"
+      - name: Update Image Version in the related HelmChart values.dev.yaml
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq e -i '.image.tag = "${{ github.event.client_payload.sha }}"' 'dev.values.yaml'
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update dev.values.yml file
+          branch: main
+  missing-sha:
+    runs-on: ubuntu-latest
+    if: ${{ !github.event.client_payload.sha }}
+    steps:
+      - run: |
+        echo "You must include a SHA within client_payload for this action to work"
