@@ -7,7 +7,7 @@ image:
   repository: ghcr.io/department-of-veterans-affairs/lighthouse-backstage
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: 'KL123'
+  tag: 'KLlaksdjfklasdfjklasdfjsdlk'
 containers:
   frontend:
     name: http
