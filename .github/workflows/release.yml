@@ -23,4 +23,5 @@ jobs:
 
       - name: list github event contents
         run: |
-          echo "${{ github.event.event_type }}"
+          echo "${{ github.event.client_payload }}"
+          echo "${{ github.event.sha }}"
