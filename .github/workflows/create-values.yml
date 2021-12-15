@@ -12,9 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: list github event contents
-        run: |
-          echo "${{ github.event }} "
       - name: Update Image Version in the related HelmChart values.dev.yaml
         uses: mikefarah/yq@master
         with:

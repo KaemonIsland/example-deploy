@@ -21,5 +21,6 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Configure Git
-        run: echo It Worked!
+      - name: list github event contents
+        run: |
+          echo "${{ github.event.event_type }}"
