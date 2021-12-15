@@ -25,5 +25,6 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ !github.event.client_payload.sha }}
     steps:
-      - run: |
-        echo "You must include a SHA within client_payload for this action to work"
+      - name: Missing SHA error
+        run: |
+          echo "You must include a SHA within client_payload for this action to work"
